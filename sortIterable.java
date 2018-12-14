@@ -34,17 +34,24 @@ class SortIterable {
 
         // Comparator
         public static class CompSSN implements Comparator<Person> {
+            private int mod = 1;
+
+            public CompSSN(boolean asc) {
+                if (asc == false)
+                    mod = -1;
+            }
+
             @Override
             public int compare(Person arg0, Person arg1) {
-                return arg0.ssn.compareToIgnoreCase(arg1.ssn);
+                return mod * arg0.ssn.compareToIgnoreCase(arg1.ssn);
             }
         }
 
         public static class CompBirthDate implements Comparator<Person> {
             private int mod = 1;
 
-            public CompDate(boolean desc) {
-                if (desc)
+            public CompBirthDate(boolean asc) {
+                if (asc == false)
                     mod = -1;
             }
 
@@ -55,30 +62,58 @@ class SortIterable {
         }
 
         public static class CompFirstName implements Comparator<Person> {
+            private int mod = 1;
+
+            public CompFirstName(boolean asc) {
+                if (asc == false)
+                    mod = -1;
+            }
+
             @Override
             public int compare(Person arg0, Person arg1) {
-                return arg0.firstName.compareToIgnoreCase(arg1.firstName);
+                return mod * arg0.firstName.compareToIgnoreCase(arg1.firstName);
             }
         }
 
         public static class CompLastName implements Comparator<Person> {
+            private int mod = 1;
+
+            public CompLastName(boolean asc) {
+                if (asc == false)
+                    mod = -1;
+            }
+
             @Override
             public int compare(Person arg0, Person arg1) {
-                return arg0.lastName.compareToIgnoreCase(arg1.lastName);
+                return mod * arg0.lastName.compareToIgnoreCase(arg1.lastName);
             }
         }
 
         public static class CompHeightIn implements Comparator<Person> {
+            private int mod = 1;
+
+            public CompHeightIn(boolean asc) {
+                if (asc == false)
+                    mod = -1;
+            }
+
             @Override
             public int compare(Person arg0, Person arg1) {
-                return (int) (arg0.heightIn - arg1.heightIn);
+                return mod * (int) (arg0.heightIn - arg1.heightIn);
             }
         }
 
         public static class CompWeightLb implements Comparator<Person> {
+            private int mod = 1;
+
+            public CompWeightLb(boolean asc) {
+                if (asc == false)
+                    mod = -1;
+            }
+
             @Override
             public int compare(Person arg0, Person arg1) {
-                return (int) (arg0.weightLb - arg1.weightLb);
+                return mod * (int) (arg0.weightLb - arg1.weightLb);
             }
         }
 
@@ -88,28 +123,28 @@ class SortIterable {
 
         switch (sortField) {
         case "ssn":
-            Collections.sort(people, new Person.CompSSN());
-            System.out.println("by ssn");
+            Collections.sort(people, new Person.CompSSN(ascending == "ascending"));
+            System.out.println("by ssn " + ascending);
             break;
         case "dateOfBirth":
-            Collections.sort(people, new Person.CompBirthDate());
-            System.out.println("by Date of Birth");
+            Collections.sort(people, new Person.CompBirthDate(ascending == "ascending"));
+            System.out.println("by Date of Birth " + ascending);
             break;
         case "firstName":
-            Collections.sort(people, new Person.CompFirstName());
-            System.out.println("by first name");
+            Collections.sort(people, new Person.CompFirstName(ascending == "ascending"));
+            System.out.println("by first name " + ascending);
             break;
         case "lastName":
-            Collections.sort(people, new Person.CompLastName());
-            System.out.println("by last name");
+            Collections.sort(people, new Person.CompLastName(ascending == "ascending"));
+            System.out.println("by last name " + ascending);
             break;
         case "heightIn":
-            Collections.sort(people, new Person.CompHeightIn());
-            System.out.println("by height");
+            Collections.sort(people, new Person.CompHeightIn(ascending == "ascending"));
+            System.out.println("by height " + ascending);
             break;
         case "weightLb":
-            Collections.sort(people, new Person.CompWeightLb());
-            System.out.println("by weight");
+            Collections.sort(people, new Person.CompWeightLb(ascending == "ascending"));
+            System.out.println("by weight " + ascending);
             break;
 
         }
@@ -134,43 +169,86 @@ class SortIterable {
             e.printStackTrace();
         }
 
-        ArrayList<Person> list = sort(people, "ssn", "asc");
+        //
+        //
+        ArrayList<Person> list = sort(people, "ssn", "ascending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        list = sort(people, "ssn", "descending");
 
         for (Person p : list) {
             System.out.println(p.toString());
         }
         System.out.println();
         System.out.println();
-
-        list = sort(people, "dateOfBirth", "asc");
+        //
+        //
+        list = sort(people, "dateOfBirth", "ascending");
         for (Person p : list) {
             System.out.println(p.toString());
         }
         System.out.println();
         System.out.println();
-
-        list = sort(people, "firstName", "asc");
+        list = sort(people, "dateOfBirth", "descending");
         for (Person p : list) {
             System.out.println(p.toString());
         }
         System.out.println();
         System.out.println();
-
-        list = sort(people, "lastName", "asc");
+        //
+        //
+        list = sort(people, "firstName", "ascending");
         for (Person p : list) {
             System.out.println(p.toString());
         }
         System.out.println();
         System.out.println();
-
-        list = sort(people, "heightIn", "asc");
+        list = sort(people, "firstName", "descending");
         for (Person p : list) {
             System.out.println(p.toString());
         }
         System.out.println();
         System.out.println();
-
-        list = sort(people, "weightLb", "asc");
+        //
+        //
+        list = sort(people, "lastName", "ascending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        list = sort(people, "lastName", "descending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        //
+        //
+        list = sort(people, "heightIn", "ascending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        list = sort(people, "heightIn", "descending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        //
+        //
+        list = sort(people, "weightLb", "ascending");
+        for (Person p : list) {
+            System.out.println(p.toString());
+        }
+        System.out.println();
+        System.out.println();
+        list = sort(people, "weightLb", "descending");
         for (Person p : list) {
             System.out.println(p.toString());
         }
